@@ -1,11 +1,13 @@
-package saundab.ds.tree;
-/*
+package saundab.ds.BTree;
+
+/**
+ * @author Abhinav Saund
  * B-tree insert
  * working example took 3 days
  * still needs improvement
- * 	1. max degree should be dynamic, currently its 4
+ * 	1. max degree should be a dynamic(even only) value. Currently its 4
  * 	2. the insertion login can be called from inside split itself thus saving unnecessary traversal
- * 
+ *
  */
 public class BTree {
 

@@ -1,4 +1,4 @@
-package saundab.ds.tree;
+package saundab.ds.SplayTree;
 
 /**
  * 
