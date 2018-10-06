@@ -19,7 +19,7 @@ public class Trie {
 
 	public static void main(String[] args) throws Exception {
 		// Node root=new Test16().makeTrie(null, "ca", "book");
-		Node root = new Trie().makeTrieFromDict();
+		TrieNode root = new Trie().makeTrieFromDict();
 
 		List<String> completeWords = new Trie().findCompleteWords(root, "zwitter");
 		for (String word : completeWords) {
@@ -29,7 +29,7 @@ public class Trie {
 		System.out.println("hell");
 	}
 
-	private List<String> findCompleteWords(Node root, String incompleteWord) throws Exception {
+	public List<String> findCompleteWords(TrieNode root, String incompleteWord) throws Exception {
 		List<String> completeWordsBag = new ArrayList<>();
 
 		getAllWords(root, incompleteWord, completeWordsBag);
@@ -37,7 +37,7 @@ public class Trie {
 		return completeWordsBag;
 	}
 
-	private void getAllWords(Node root, String str, List<String> completeWordsBag) throws Exception {
+	private void getAllWords(TrieNode root, String str, List<String> completeWordsBag) throws Exception {
 		if (!str.equals("")) {
 			int i = str.charAt(0) - 'a' + 1;
 			if (root.child[i] != null) {
@@ -58,7 +58,7 @@ public class Trie {
 
 	}
 
-	private void iterateBelow(Node node, List<String> completeWordsBag) {
+	private void iterateBelow(TrieNode node, List<String> completeWordsBag) {
 		if (node.word != null) {
 			completeWordsBag.add(node.word);
 		}
@@ -69,13 +69,13 @@ public class Trie {
 		}
 	}
 
-	private Node makeTrie(Node root, String ip, String word) {
+	private TrieNode makeTrie(TrieNode root, String ip, String word) {
 		if (root == null) {
 			if (ip.equals("")) {
-				root = new Node(word);
+				root = new TrieNode(word);
 				return root;
 			} else {
-				root = new Node();
+				root = new TrieNode();
 			}
 		} else {
 			if (ip.equals("")) {
@@ -95,8 +95,8 @@ public class Trie {
 		return root;
 	}
 
-	private Node makeTrieFromDict() {
-		Node root = null;
+	public TrieNode makeTrieFromDict() {
+		TrieNode root = null;
 		DictReader reader = new DictReader();
 		String word = null;
 
@@ -109,19 +109,6 @@ public class Trie {
 
 	private int getAlphabeticIndexFor(int asciiIdx) {
 		return asciiIdx - 97 + 1; // 97='a' 65='A'
-	}
-
-	private class Node {
-		String word;
-		Node[] child = new Node[27];
-
-		Node(String word) {
-			this.word = word;
-		}
-
-		Node() {
-
-		}
 	}
 
 	private class DictReader {
@@ -140,6 +127,47 @@ public class Trie {
 
 			return null;
 		}
+	}
+
+	public void deleteWord(TrieNode root, String str) {
+		deleteWord(root, str, str);
+	}
+	
+	private boolean deleteWord(TrieNode root, String str, String word) {
+		if(root==null)
+			return false;
+		
+		if(root.word!=null && root.word.equals(word)) {
+			boolean hasChildren=false;
+			for(TrieNode child:root.child) {
+				if(child!=null) {
+					hasChildren=true;
+					break;
+				}
+			}
+			if(hasChildren) {
+				root.word=null;
+				return false;
+			}
+			else
+				return true;
+		}
+		
+		int idx=str.charAt(0)-'a'+1;
+		boolean delete=false;
+		if(root.child[idx]!=null) {
+			delete= deleteWord(root.child[idx], str.substring(1,  str.length()), word);
+		}
+		
+		if(delete) {
+			root.child[idx]=null;
+			if(root.word==null)
+				return true;//delete reference to me!
+			else 
+				return false;
+		}
+	
+		return false;
 	}
 
 }
