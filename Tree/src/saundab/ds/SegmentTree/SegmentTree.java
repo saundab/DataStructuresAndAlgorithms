@@ -4,6 +4,7 @@ package saundab.ds.SegmentTree;
  * @author Abhinav Saund
  * 
  * SEGMENT TREE
+ * A tree ds used to store info about intervals/segments
  * 
  * Operations
  * 1. Construct tree
