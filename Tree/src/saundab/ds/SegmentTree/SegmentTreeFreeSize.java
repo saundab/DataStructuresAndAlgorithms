@@ -20,10 +20,36 @@ public class SegmentTreeFreeSize {
 	public static void main(String[] args) {
 		int[] arr= {11,12,13,14,15,16};
 		int[] st=new SegmentTreeFreeSize ().createSegmentTree(arr);
-		new SegmentTreeFreeSize ().updateSegmentTree(arr, st, 0, 0, arr.length-1, 1, 10);
+		//new SegmentTreeFreeSize ().updateSegmentTree(arr, st, 0, 0, arr.length-1, 1, 10);
+		System.out.println(new SegmentTreeFreeSize ().findSumInRange(st, 1, 4, 0, arr.length-1, 0));
 		System.out.println("done");
 	}
 
+	//QUERY
+	//find the sum in range 3-4
+	private int findSumInRange(int[] st, int lowRange, int highRange, int start, int end, int stIdx) {
+		if(lowRange==start &&highRange==end) {
+			return st[stIdx];
+		}
+		
+		int mid=start+(end-start)/2;
+		if(lowRange<=mid) {
+			if(highRange<=mid) {
+				return findSumInRange(st, lowRange, highRange, start, mid, stIdx*2+1);
+			}else {
+				return findSumInRange(st, lowRange, mid, start, mid, stIdx*2+1)
+						+ findSumInRange(st, mid+1, highRange, mid+1, end, stIdx*2+2);
+			}
+		}else {
+			if(highRange<=mid) {
+				//not possible
+			}else {
+				return findSumInRange(st, lowRange, highRange, mid+1, end, stIdx*2+2);
+			}
+		}
+		return -1;
+	}
+	
 	//UPDATE
 	private void updateSegmentTree(int[] arr, int[] st, int stIdx, int start, int end, int idx, int val) {
 		if(start==end) {
