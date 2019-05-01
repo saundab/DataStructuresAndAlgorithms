@@ -1,4 +1,4 @@
-package com.dp.subsetSum.iterative;
+package subsetSum;
 /*
  * Given a total and an array of positive integers, 
  * find out if a subset of integers from the array add to the given total

@@ -1,4 +1,4 @@
-package com.dp.subsetSum.dp;
+package subsetSum;
 
 
 /*
