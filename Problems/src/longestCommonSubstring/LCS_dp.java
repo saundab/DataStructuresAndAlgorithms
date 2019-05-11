@@ -14,13 +14,6 @@ public class LCS_dp {
 		String str2="AXBXC";
 		int[][] tmp = new int[str1.length()+1][str2.length()+1];
 		
-		for(int row=0; row<tmp.length; row++) {
-			tmp[row][0]=0;
-		}
-		for(int col=0; col<tmp[0].length; col++) {
-			tmp[0][col]=0;
-		}
-		
 		List<Character> lcs = new ArrayList<>();
 		int length = find(tmp, str1, str2, lcs);
 		System.out.println(length);
