@@ -43,6 +43,7 @@ public class NQueen_BT {
 		return isPlaced;
 	}
 
+	//IMP!!! pay attention
 	private boolean isSafe(int[][] board, Set<Position> occupiedPositions, Position tmpPos) {
 		//W
 		for(int tmpCol=tmpPos.col; tmpCol>=0; tmpCol--) {
